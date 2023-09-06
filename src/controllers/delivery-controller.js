@@ -1,5 +1,5 @@
 const { PubSub  } = require("@google-cloud/pubsub");
-const pubSubClient = new PubSub();
+const pubSubClient = new PubSub({ projectId: process.env.GCP_PROJ_ID, keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS });
 const subscriptionName = "delivery_sub";
 const timeout = 60;
 const pubsubRepository = require("../repositories/pub-sub-repo");

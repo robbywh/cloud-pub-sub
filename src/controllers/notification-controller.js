@@ -1,6 +1,6 @@
 const { PubSub } = require("@google-cloud/pubsub");
-const pubSubClient = new PubSub();
-const subscriptionName = "notification_sub";
+const pubSubClient = new PubSub({ projectId: process.env.GCP_PROJ_ID, keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS });
+const subscriptionName = "notification-sub";
 const timeout = 60;
 
 const pubsubRepository = require("../repositories/pub-sub-repo");
@@ -17,6 +17,7 @@ module.exports = {
 
     pullNotification: (req, res) => {
         try {
+            console.log("PULL NOTIF")
             listenForPullMessages(pubSubClient, subscriptionName, timeout);            
         } catch (error) {
             return res.status(500).json({
